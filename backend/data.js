@@ -1,9 +1,9 @@
 const data = {
   products: [
     {
-      name: 'Nike Slim shirt',
-      slug: 'nike-slim-shirt',
-      category: 'Shirts',
+      name: 'Nike Slim pant',
+      slug: 'nike-slim-pant',
+      category: 'pants',
       image: '/images/p4.jpg',
       price: 120,
       countInStore: 10,
@@ -25,7 +25,7 @@ const data = {
       description: 'high quality shirt',
     },
     {
-      name: 'Calvin Klein Slim shirt',
+      name: 'CK Slim shirt',
       slug: 'ck-slim-shirt',
       category: 'Shirts',
       image: '/images/p2.jpg',
