@@ -13,13 +13,13 @@ function App() {
           <Navbar bg="success" variant="primary">
             <Container>
               <LinkContainer to="/">
-                <Navbar.Brand className='text-white'>Alexona</Navbar.Brand>
+                <Navbar.Brand className="text-white">Alexona</Navbar.Brand>
               </LinkContainer>
             </Container>
           </Navbar>
         </header>
         <main>
-          <Container>
+          <Container className="mt-3">
             <Routes>
               <Route path="/product/:slug" element={<ProductScreen />} />
               <Route path="/" element={<HomeScreen />} />
