@@ -5,10 +5,13 @@ import Row from 'react-bootstrap/esm/Row';
 import Card from 'react-bootstrap/esm/Card';
 import Badge from 'react-bootstrap/esm/Badge';
 import Button from 'react-bootstrap/esm/Button';
+import LoadingBox from "../components/LoadingBox"
 import ListGroup from 'react-bootstrap/esm/ListGroup';
 import { useParams } from 'react-router-dom';
+import MessageBox from "../components/MessageBox"
 import Rating from '../components/Rating';
 import { Helmet } from 'react-helmet-async';
+import { getError } from '../components/Utell';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,16 +43,16 @@ function ProductScreen() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err)});
       }
     };
     fetchData();
   }, [slug]);
 
   return loading ? (
-    <div>Loading...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
@@ -62,10 +65,10 @@ function ProductScreen() {
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
-                <ListGroup.Item>
-                  <Helmet>
-                    <title>{product.name}</title>
-                    </Helmet>
+            <ListGroup.Item>
+              <Helmet>
+                <title>{product.name}</title>
+              </Helmet>
             </ListGroup.Item>
             <ListGroup.Item>
               <Rating
@@ -86,14 +89,15 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Col>Price:</Col>
-                    <Col><h3>R{product.price}</h3></Col>
+                    <Col>
+                      <h3>R{product.price}</h3>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <Row>
                     <Col>Status:</Col>
                     <Col>
-                      
                       {product.countInStock > 0 ? (
                         <Badge bg="success">Available</Badge>
                       ) : (
@@ -115,7 +119,8 @@ function ProductScreen() {
           </Card>
         </Col>
       </Row>
-    </div>
+        </div>
+        
   );
 }
 
